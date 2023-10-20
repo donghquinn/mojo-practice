@@ -14,3 +14,17 @@ modular install mojo
 ```
 
 ## Install mojo extension on VS Code(Optional)
+
+
+## For ZSH users
+
+```
+echo 'export MODULAR_HOME="/Users/<USER_NAME>/.modular"' >> ~/.zshrc
+echo 'export PATH="/Users/<USER_NAME>/.modular/pkg/packages.modular.com_mojo/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+## Check
+```
+mojo
+```
