@@ -1,4 +1,4 @@
-# [MOJO install on MAC Apple Silicon][https://developer.modular.com/download]
+# [MOJO install on MAC Apple Silicon](https://developer.modular.com/download)
 
 ## Install Modular CLI
 
