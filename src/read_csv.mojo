@@ -8,3 +8,5 @@ fn main() raises:
     let data: PythonObject = pd.read_csv("read.csv")
 
     print(data)
+
+    print(data.describe())
