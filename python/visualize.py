@@ -2,8 +2,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 def visualize_stock(data: pd.DataFrame):
-    plt.plot(data["Actual"], label="Raw Data")
-    plt.plot(data["Predicted"], label="Predicted")
+    plt.title("Stock Prediction")
+    
+    plt.plot(data["Actual"], label="Raw Data", c="g")
+    plt.plot(data["Predicted"], label="Predicted", c="orange")
     
     plt.legend(loc="best")
-    plt.show()
+    plt.savefig("graph/stock_lstm.png")

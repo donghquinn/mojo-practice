@@ -7,6 +7,4 @@ def main():
 def stock_predict():
     stock()
 
-
-
 stock_predict()
