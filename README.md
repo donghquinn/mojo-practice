@@ -47,5 +47,5 @@ mojo
     - multiRegression: Multi Regression with statsmodels
 
 - stock.csv: CSV Dataset with LSTM
-- combined.csv: Multi Regression Dataset
+- combined.csv: Multi Regression Dataset (South Korean KMA ASOS API)
 - estimate.csv: LSTM Prediction Estimated Score
