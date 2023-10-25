@@ -2,7 +2,7 @@ import torch
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error
 from visualize import visualize_stock
 from sklearn.model_selection import train_test_split
 from lstm import StockPredictor
@@ -60,29 +60,47 @@ def stock():
 
     # 테스트
     model.eval()
+    
+
     with torch.no_grad():
         test_outputs = model(X_test)
+        
         mse = mean_squared_error(y_test, test_outputs)
-        print(f'Mean Squared Error on Test Data: {mse}')
-
+        mae = mean_absolute_error(y_test, test_outputs)
+        mape = mean_absolute_percentage_error(y_test, test_outputs)
+        rmse = np.sqrt(mse)
+        
+        print("MSE: {}, MAE: {}, RMSE: {}, MAPE: {}".format(round(mse, 3),  round(mae, 3), round(rmse, 3), round(mape, 3)))
+    
     predicted_prices = scaler_x.inverse_transform(test_outputs.numpy())
     actual_prices = scaler_x.inverse_transform(y_test.numpy())
     
-    data = {
+    result_data = {
         "Actual": [round(val[0], 3) for val in actual_prices],
-        "Predicted": [round(val[0], 3) for val in predicted_prices]
+        "Predicted": [round(val[0], 3) for val in predicted_prices],
     }
+    
+    estimate_frame = pd.DataFrame(
+        columns=["MAE", "MSE", "RMSE", "MAPE"],
+        index=["Stock"],
+        data=[[round(mae, 6),
+        round(mse, 6),
+        round(rmse, 6),
+        round(mape, 6)
+        ]
+    ]
+    )
+    
+    result_frame = pd.DataFrame(result_data)
 
-    result_frame = pd.DataFrame(data)
-    
-    result_frame["Error"] = result_frame["Actual"] - result_frame["Predicted"]
-    
-    print(result_frame)
-    
     end = time.time()
     
     print("Elapsed Time: {}".format(end - start))
     
+    print(result_frame)
+            
     visualize_stock(result_frame)
     
-    return result_frame
+    estimate_frame.to_csv("estimate.csv")
+    
+    return result_frame, estimate_frame
