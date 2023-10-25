@@ -42,10 +42,12 @@ def stock():
     y_test = torch.tensor(y_test, dtype=torch.float32)
 
     model = StockPredictor(input_dim, hidden_dim, num_layers)
+    
     criterion = torch.nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
     num_epochs = 100
+    
     for epoch in range(num_epochs):
         outputs = model(X_train)
         optimizer.zero_grad()
