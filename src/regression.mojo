@@ -7,22 +7,31 @@ fn main() raises:
     let stats: PythonObject = Python.import_module("statsmodels.api")
     let plt: PythonObject = Python.import_module("matplotlib.pyplot")
 
-    var data: PythonObject = pd.read_csv("2023_Samcheonpo.csv")
+    var data: PythonObject = pd.read_csv("combined.csv")
 
     data = data.fillna(0)
 
-    data = data.set_index(data["Date"])
+    data = data.set_index(data["date"])
+
+    data = data[
+        [
+            "temperature",
+            "rain",
+            "humidity",
+            "visibility",
+            "pressure",
+            "wind_speed",
+            "wind_direction",
+            "total_cloud",
+            "solar_radiation",
+        ]
+    ]
 
     print(data)
 
-    plt.plot(data["Solar_Radiation"])
-    plt.show()
+    let formula = "solar_radiation~rain*temperature*humidity*total_cloud*pressure*visibility"
+    var model = stats.OLS(data, formula)
 
-    let model = stats.OLS(data, "Solar_Radiation ~ Rain").fit()
+    model = model.fit()
 
     print(model.summary())
-    # var refined = data
-
-    # data["Date"] = pd.to_datetime(refined["Date"])
-
-    # print(refined)
