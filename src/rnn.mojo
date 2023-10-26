@@ -1,9 +1,11 @@
 from python import Python
 
 
-def main():
+fn main() raises:
     Python.add_to_path("python_modules/rnn")
 
     let model = Python.import_module("rnn_stock")
 
-    model.stock()
+    let result = model.stock()
+
+    print(result)

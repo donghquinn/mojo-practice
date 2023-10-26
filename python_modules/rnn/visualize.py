@@ -8,4 +8,4 @@ def visualize_stock(data: pd.DataFrame):
     plt.plot(data["Predicted"], label="Predicted", c="orange")
     
     plt.legend(loc="best")
-    plt.savefig("graph/stock_lstm.png")
+    plt.savefig("graph/stock_rnn.png")
