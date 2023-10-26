@@ -6,6 +6,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolu
 from visualize import visualize_stock
 from sklearn.model_selection import train_test_split
 from lstm import StockPredictor
+
 import time
 
 def stock():
@@ -42,7 +43,7 @@ def stock():
     y_test = torch.tensor(y_test, dtype=torch.float32)
 
     model = StockPredictor(input_dim, hidden_dim, num_layers)
-    
+
     criterion = torch.nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
@@ -82,7 +83,7 @@ def stock():
     
     estimate_frame = pd.DataFrame(
             columns=["MAE", "MSE", "RMSE", "MAPE"],
-            index=["Stock"],
+            index=["LSTM Stock"],
             data=[[round(mae, 6),
             round(mse, 6),
             round(rmse, 6),
