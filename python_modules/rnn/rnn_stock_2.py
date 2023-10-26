@@ -11,7 +11,7 @@ import time
 
 def stock():
     start = time.time()
-    data = pd.read_csv("stock_2.csv")
+    data = pd.read_csv("datasets/stock_2.csv")
     data
 
     price = data["Close"].values.astype(float)
@@ -101,7 +101,7 @@ def stock():
         ]
     )
     
-    estimate_frame.to_csv("estimate_2.csv")
+    estimate_frame.to_csv("estimates/estimate_2.csv")
     
     visualize_stock(result_frame, "stock_rnn_2")
     

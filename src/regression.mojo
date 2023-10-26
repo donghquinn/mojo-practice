@@ -7,7 +7,7 @@ fn main() raises:
     let stats: PythonObject = Python.import_module("statsmodels.api")
     let plt: PythonObject = Python.import_module("matplotlib.pyplot")
 
-    var data: PythonObject = pd.read_csv("combined.csv")
+    var data: PythonObject = pd.read_csv("datasets/combined.csv")
 
     data = data.fillna(0)
 

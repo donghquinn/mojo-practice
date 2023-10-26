@@ -11,7 +11,7 @@ import time
 
 def stock():
     start = time.time()
-    data = pd.read_csv("stock.csv")
+    data = pd.read_csv("datasets/stock.csv")
     data
 
     price = data["Close"].values.astype(float)
@@ -98,7 +98,7 @@ def stock():
             ]
         ]
     )
-    estimate_frame.to_csv("estimate.csv")
+    estimate_frame.to_csv("estimates/estimate.csv")
     
     print("Elapsed Time: {}".format(end - start))
         
