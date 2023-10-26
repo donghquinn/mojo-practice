@@ -5,7 +5,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error
 from visualize import visualize_stock
 from sklearn.model_selection import train_test_split
-from lstm import StockPredictor
+from lstm import LstmModel
 
 import time
 
@@ -42,7 +42,7 @@ def stock():
     X_test = torch.tensor(X_test, dtype=torch.float32)
     y_test = torch.tensor(y_test, dtype=torch.float32)
 
-    model = StockPredictor(input_dim, hidden_dim, num_layers)
+    model = LstmModel(input_dim, hidden_dim, num_layers)
 
     criterion = torch.nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
@@ -61,8 +61,6 @@ def stock():
 
     # 테스트
     model.eval()
-    
-
     with torch.no_grad():
         test_outputs = model(X_test)
         
