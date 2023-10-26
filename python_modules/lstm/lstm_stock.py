@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error
-from python_modules.lstm.visualize import visualize_stock
+from visualize import visualize_stock
 from sklearn.model_selection import train_test_split
 from lstm import StockPredictor
 

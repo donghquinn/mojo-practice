@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error
 from sklearn.model_selection import train_test_split
+from visualize import visualize_stock
 from rnn import RnnModel
 
 import time
@@ -98,6 +99,8 @@ def stock():
     print(result_frame)
             
     estimate_frame.to_csv("estimate.csv")
+    
+    visualize_stock(result_frame)
     
     print("Elapsed Time: {}".format(end - start))
         
