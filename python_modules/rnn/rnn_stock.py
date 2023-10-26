@@ -82,7 +82,7 @@ def stock():
     
     estimate_frame = pd.DataFrame(
             columns=["MAE", "MSE", "RMSE", "MAPE"],
-            index=["Stock"],
+            index=["RNN Stock"],
             data=[[round(mae, 6),
             round(mse, 6),
             round(rmse, 6),
@@ -97,7 +97,7 @@ def stock():
     
     print(result_frame)
             
-    estimate_frame.to_csv("rnn_stock_estimate.csv")
+    estimate_frame.to_csv("estimate.csv")
     
     print("Elapsed Time: {}".format(end - start))
         
