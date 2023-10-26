@@ -3,9 +3,10 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error
-from visualize import visualize_stock
+from python_modules.lstm.visualize import visualize_stock
 from sklearn.model_selection import train_test_split
 from lstm import StockPredictor
+
 import time
 
 def stock():
@@ -42,7 +43,7 @@ def stock():
     y_test = torch.tensor(y_test, dtype=torch.float32)
 
     model = StockPredictor(input_dim, hidden_dim, num_layers)
-    
+
     criterion = torch.nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
