@@ -14,6 +14,6 @@ class StockPredictor(nn.Module):
         self.linear = nn.Linear(hidden_dim, 1)
 
     def forward(self, x):
-        out, _ = self.lstm(x)
+        out, hidden = self.lstm(x)
         out = self.linear(out[:, -1, :])
         return out

@@ -97,7 +97,7 @@ def stock():
     
     print(result_frame)
             
-    estimate_frame.to_csv("estimate.csv")
+    estimate_frame.to_csv("rnn_stock_estimate.csv")
     
     print("Elapsed Time: {}".format(end - start))
         

@@ -100,7 +100,7 @@ def stock():
             
     visualize_stock(result_frame)
     
-    estimate_frame.to_csv("estimate.csv")
+    estimate_frame.to_csv("lstm_stock_estimate.csv")
     
     print("Elapsed Time: {}".format(end - start))
         

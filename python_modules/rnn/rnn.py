@@ -20,8 +20,6 @@ class RnnModel(nn.Module):
         out, _ = self.layer1(x)
         print("Layer Out: {}".format(out))
         
-        result = self.fc(out)
-        
-        print("Full Connected Layer Result: {}".format(result))
+        result = self.fc(out[:,-1, :])
         
         return result
