@@ -79,25 +79,25 @@ def stock():
         "Predicted": [round(val[0], 3) for val in predicted_prices],
     }
     
-    estimate_frame = pd.DataFrame(
-            columns=["MAE", "MSE", "RMSE", "MAPE"],
-            index=["LSTM Stock"],
-            data=[[round(mae, 6),
-            round(mse, 6),
-            round(rmse, 6),
-            round(mape, 6)
-            ]
-        ]
-    )
-    
+
     result_frame = pd.DataFrame(result_data)
 
     end = time.time()
     
     print(result_frame)
             
-    visualize_stock(result_frame)
-    
+    visualize_stock(result_frame, "stock_lstm")
+    estimate_frame = pd.DataFrame(
+            columns=["MAE", "MSE", "RMSE", "MAPE", "Elapsed"],
+            index=["RNN Stock"],
+            data=[[round(mae, 6),
+            round(mse, 6),
+            round(rmse, 6),
+            round(mape, 6),
+            end - start
+            ]
+        ]
+    )
     estimate_frame.to_csv("estimate.csv")
     
     print("Elapsed Time: {}".format(end - start))
