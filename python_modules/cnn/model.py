@@ -29,6 +29,8 @@ class CnnModel(nn.Module):
         print("First Layer Size: {}".format(out.size))
         out2, _ = self.layer2(out)
 
+        print("Second Layer Size: {}".format(out2.size))
+
         out3, _ = self.fc(out2)
 
         return out3
