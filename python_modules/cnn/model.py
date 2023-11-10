@@ -1,5 +1,4 @@
 import torch.nn as nn
-import torch
 
 
 class CnnModel(nn.Module):
@@ -19,6 +18,7 @@ class CnnModel(nn.Module):
         )
 
         self.fc = nn.Sequential(
+            nn.Flatten(),
             nn.Linear(),
             nn.Softmax()
         )
@@ -26,6 +26,7 @@ class CnnModel(nn.Module):
     def forward(self, x):
         out, _ = self.layer1(x)
 
+        print("First Layer Size: {}".format(out.size))
         out2, _ = self.layer2(out)
 
         out3, _ = self.fc(out2)
