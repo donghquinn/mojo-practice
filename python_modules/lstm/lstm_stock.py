@@ -5,13 +5,13 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error
 from visualize import visualize_stock
 from sklearn.model_selection import train_test_split
-from lstm import StockPredictor
+from lstm import LstmModel
 
 import time
 
 def stock():
     start = time.time()
-    data = pd.read_csv("stock.csv")
+    data = pd.read_csv("datasets/stock.csv")
     data
 
     price = data["Close"].values.astype(float)
@@ -42,7 +42,7 @@ def stock():
     X_test = torch.tensor(X_test, dtype=torch.float32)
     y_test = torch.tensor(y_test, dtype=torch.float32)
 
-    model = StockPredictor(input_dim, hidden_dim, num_layers)
+    model = LstmModel(input_dim, hidden_dim, num_layers)
 
     criterion = torch.nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
@@ -61,8 +61,6 @@ def stock():
 
     # 테스트
     model.eval()
-    
-
     with torch.no_grad():
         test_outputs = model(X_test)
         
@@ -81,26 +79,26 @@ def stock():
         "Predicted": [round(val[0], 3) for val in predicted_prices],
     }
     
-    estimate_frame = pd.DataFrame(
-            columns=["MAE", "MSE", "RMSE", "MAPE"],
-            index=["LSTM Stock"],
-            data=[[round(mae, 6),
-            round(mse, 6),
-            round(rmse, 6),
-            round(mape, 6)
-            ]
-        ]
-    )
-    
+
     result_frame = pd.DataFrame(result_data)
 
     end = time.time()
     
     print(result_frame)
             
-    visualize_stock(result_frame)
-    
-    estimate_frame.to_csv("estimate.csv")
+    visualize_stock(result_frame, "stock_lstm")
+    estimate_frame = pd.DataFrame(
+            columns=["MAE", "MSE", "RMSE", "MAPE", "Elapsed"],
+            index=["RNN Stock"],
+            data=[[round(mae, 6),
+            round(mse, 6),
+            round(rmse, 6),
+            round(mape, 6),
+            end - start
+            ]
+        ]
+    )
+    estimate_frame.to_csv("estimates/estimate.csv")
     
     print("Elapsed Time: {}".format(end - start))
         
