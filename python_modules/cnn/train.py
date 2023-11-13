@@ -16,7 +16,7 @@ def train():
 
     print("Available Resource: {}".format(device))
 
-    model = CnnModel(input_size=28, kernel_size=3,
+    model = CnnModel(input_channel=1, output_channel=32, kernel_size=3,
                      padding_size=1, stride=1).to(device)
 
     criterion = torch.nn.CrossEntropyLoss()
@@ -25,14 +25,14 @@ def train():
     model.train()
 
     for i in range(epoch):
-        for image, label in next(iter(train_tensor)):
+        for image, label in train_tensor:
             # 기울기 초기화
             optimizer.zero_grad()
 
             # 합성곱 연산
-            output = model(image)
+            output = model(image.to(device))
             # 비용 함수 계산
-            cost = criterion(output, test_tensor)
+            cost = criterion(output, label.to(device))
             # 기울기 계산
             cost.backward()
             # 가중치 및 편향 업데이트
@@ -40,7 +40,7 @@ def train():
 
         print("[Epoch: {}] cost: {}".format(i, cost))
 
-    model.eval()
+    # model.eval()
 
 
 train()

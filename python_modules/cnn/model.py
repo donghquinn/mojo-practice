@@ -2,40 +2,29 @@ import torch.nn as nn
 
 
 class CnnModel(nn.Module):
-    def __init__(self, input_size: int | tuple[int], kernel_size: int | tuple[int], padding_size: int, stride: int):
+    def __init__(self, input_channel: int | tuple[int], output_channel: int | tuple[int], kernel_size: int | tuple[int], padding_size: int, stride: int):
         super(CnnModel, self).__init__()
 
-        firstOuputSize = (input_size + 2 * padding_size -
-                          kernel_size) / stride + 1
-
-        print("1st Layer output Size: {}".format(
-            firstOuputSize))
-
         self.layer1 = nn.Sequential(
-            nn.Conv2d(in_channels=input_size, out_channels=firstOuputSize,
+            nn.Conv2d(in_channels=input_channel, out_channels=output_channel,
                       kernel_size=kernel_size, padding=padding_size, stride=stride),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=1),
         )
 
-        secondOutputSize = (firstOuputSize + 2 *
-                            padding_size - kernel_size) / stride + 1
-
-        print("2nd Layer output Size: {}".format(
-            secondOutputSize))
-
         self.layer2 = nn.Sequential(
-            nn.Conv2d(in_channels=firstOuputSize,
-                      out_channels=secondOutputSize, kernel_size=kernel_size, padding=padding_size, stride=stride),
+            nn.Conv2d(in_channels=output_channel,
+                      out_channels=output_channel * 2, kernel_size=kernel_size, padding=padding_size, stride=stride),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=1),
         )
 
-        self.fc = nn.Sequential(
-            nn.Flatten(secondOutputSize),
-            nn.Linear(secondOutputSize),
-            nn.Softmax()
-        )
+        self.fc = nn.Linear(7 * 7 * 64 * 2, 10),
+        # nn.Sequential(
+        #     # nn.Flatten(),
+
+        #     nn.Softmax()
+        # )
 
     def forward(self, x):
         out = self.layer1(x)
@@ -45,6 +34,8 @@ class CnnModel(nn.Module):
         out2 = self.layer2(out)
 
         print("Second Layer Convolution Output Size: {}".format(out2.size))
+
+        out2 = out2.view(out2.size(0), -1)
 
         out3 = self.fc(out2)
 
